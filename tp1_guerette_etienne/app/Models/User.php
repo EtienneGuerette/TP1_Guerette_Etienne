@@ -18,10 +18,21 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
-        'password',
+        'phone',
     ];
+
+    public function rentals()
+    {
+        return $this->hasMany('App\Models\Rental');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany('App\Models\Review');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
