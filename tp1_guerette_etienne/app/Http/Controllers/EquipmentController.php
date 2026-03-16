@@ -7,9 +7,21 @@ use App\Models\Equipment;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Models\Review;
+use OpenApi\Attributes as OA;
 
 class EquipmentController extends Controller
 {
+    #[OA\Get(
+        path: "/api/equipment",
+        summary: "Liste de tous les equipments",
+        tags: ["Equipment"],
+        responses: [
+            new OA\Response(
+                response: "200",
+                description: "OK"
+            )
+        ]
+    )]
     public function index()
     {
         try {
@@ -19,6 +31,30 @@ class EquipmentController extends Controller
         }
     }
 
+    #[OA\Get(
+        path: "/api/equipment/{id}",
+        summary: "Afficher un equipment",
+        tags: ["Equipment"],
+        parameters: [
+            new OA\Parameter(
+                name: "id",
+                description: "Equipment ID",
+                in: "path",
+                required: true,
+                schema: new OA\Schema(type: "integer")
+            )
+        ],
+        responses: [
+            new OA\Response(
+                response: "200",
+                description: "OK"
+            ),
+            new OA\Response(
+                response: "404",
+                description: "Equipment non trouvé"
+            )
+        ]
+    )]
     public function show(string $id)
     {
         try {
@@ -32,6 +68,30 @@ class EquipmentController extends Controller
         }
     }
 
+    #[OA\Get(
+        path: "/api/equipment/{id}/popularity",
+        summary: "Afficher la popularité d'un equipment",
+        tags: ["Equipment"],
+        parameters: [
+            new OA\Parameter(
+                name: "id",
+                description: "Equipment ID",
+                in: "path",
+                required: true,
+                schema: new OA\Schema(type: "integer")
+            )
+        ],
+        responses: [
+            new OA\Response(
+                response: "200",
+                description: "OK"
+            ),
+            new OA\Response(
+                response: "404",
+                description: "Equipment non trouvé"
+            )
+        ]
+    )]
     public function popularity(string $id)
     {
         try {

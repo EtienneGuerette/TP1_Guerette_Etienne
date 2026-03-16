@@ -5,9 +5,48 @@ namespace App\Http\Controllers;
 use App\Models\Equipment;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use OpenApi\Attributes as OA;
 
 class RentalController extends Controller
 {
+    #[OA\Get(
+        path: "/api/rentals/{id}/average_price",
+        summary: "Calculer le prix moyen d'une location",
+        tags: ["Rental"],
+        parameters: [
+            new OA\Parameter(
+                name: "id",
+                description: "Equipment ID",
+                in: "path",
+                required: true,
+                schema: new OA\Schema(type: "integer")
+            ),
+            new OA\Parameter(
+                name: "minDate",
+                description: "Date minimale",
+                in: "query",
+                required: false,
+                schema: new OA\Schema(type: "string", format: "date")
+            ),
+            new OA\Parameter(
+                name: "maxDate",
+                description: "Date maximale",
+                in: "query",
+                required: false,
+                schema: new OA\Schema(type: "string", format: "date")
+            )
+        ],
+        responses: [
+            new OA\Response(
+                response: "200",
+                description: "Prix moyen calculé"
+            ),
+            new OA\Response(
+                response: "404",
+                description: "Équipement non trouvé"
+            )
+        ]
+    )]
     public function averagePrice($id, $minDate = null, $maxDate = null)
     {
         try {

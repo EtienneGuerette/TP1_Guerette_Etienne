@@ -19,13 +19,13 @@
                 }
             }
         },
-        "/api/eq/{id}": {
+        "/api/equipment/{id}": {
             "get": {
                 "tags": [
                     "Equipment"
                 ],
                 "summary": "Afficher un equipment",
-                "operationId": "1deb0f249055f641238c5d68fb18df22",
+                "operationId": "546d2e88aec2a0d7af708399e7e20a1e",
                 "parameters": [
                     {
                         "name": "id",
@@ -46,12 +46,170 @@
                     }
                 }
             }
+        },
+        "/api/equipment/{id}/popularity": {
+            "get": {
+                "tags": [
+                    "Equipment"
+                ],
+                "summary": "Afficher la popularité d'un equipment",
+                "operationId": "f073a07513b9a2e31ca3067c2dccd504",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Equipment ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Equipment non trouvé"
+                    }
+                }
+            }
+        },
+        "/api/rentals/{id}/average_price": {
+            "get": {
+                "tags": [
+                    "Rental"
+                ],
+                "summary": "Calculer le prix moyen d'une location",
+                "operationId": "66581c1280f281a7c3d430092b069036",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Equipment ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "minDate",
+                        "in": "query",
+                        "description": "Date minimale",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    },
+                    {
+                        "name": "maxDate",
+                        "in": "query",
+                        "description": "Date maximale",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Prix moyen calculé"
+                    },
+                    "404": {
+                        "description": "Équipement non trouvé"
+                    }
+                }
+            }
+        },
+        "/api/review/{id}": {
+            "delete": {
+                "tags": [
+                    "Review"
+                ],
+                "summary": "Supprimer une critique",
+                "operationId": "a783a688ec0701dd9a462c8902db7c7f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Review ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Critique supprimée"
+                    },
+                    "404": {
+                        "description": "Critique non trouvée"
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Créer un utilisateur",
+                "operationId": "592819a0265360b2014512d6dbfaf0e7",
+                "responses": {
+                    "201": {
+                        "description": "Utilisateur créé"
+                    }
+                }
+            }
+        },
+        "/api/users/{id}": {
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Mettre à jour un utilisateur",
+                "operationId": "b9091397c8b25f12c6adb74be6ce3a5a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Utilisateur mis à jour"
+                    },
+                    "404": {
+                        "description": "Utilisateur non trouvé"
+                    }
+                }
+            }
         }
     },
     "tags": [
         {
             "name": "Equipment",
             "description": "Equipment"
+        },
+        {
+            "name": "Rental",
+            "description": "Rental"
+        },
+        {
+            "name": "Review",
+            "description": "Review"
+        },
+        {
+            "name": "User",
+            "description": "User"
         }
     ]
 }
